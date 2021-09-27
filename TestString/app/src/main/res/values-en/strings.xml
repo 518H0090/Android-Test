@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NONO</string>
+    <string name="edit_name">Name</string>
+    <string name="edit_sdt">Phone</string>
+    <string name="textView2">Infor</string>
+    <string name="button">Valid</string>
+    <string name="eidt_ag">OP</string>
+</resources>

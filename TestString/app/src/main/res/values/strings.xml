@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">App Toan Cau</string>
+    <string name="edit_name">Nhập họ tên</string>
+    <string name="edit_email" translatable="false">Email</string>
+    <string name="edit_sdt">số điện thoại</string>
+    <string name="textView2">Thông tin</string>
+    <string name="button">Xác nhận</string>
+    <string name="eidt_ag">Ma</string>
+</resources>
