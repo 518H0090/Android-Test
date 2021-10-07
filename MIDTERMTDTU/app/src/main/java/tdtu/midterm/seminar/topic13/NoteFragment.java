@@ -29,7 +29,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteFragment extends Fragment {
+public class NoteFragment extends Fragment implements ISendData{
 
     View view;
     ListView listNote;
@@ -58,7 +58,8 @@ public class NoteFragment extends Fragment {
         noteListAdapter = new NoteListAdapter(
                 getActivity(),
                 R.layout.custom_listview,
-                noteList
+                noteList,
+                this
         );
 
         listNote.setAdapter(noteListAdapter);
@@ -76,6 +77,8 @@ public class NoteFragment extends Fragment {
                 },3000);
             }
         });
+
+
 
         return view;
     }
@@ -149,4 +152,9 @@ public class NoteFragment extends Fragment {
         snackbar.show();
     }
 
+    @Override
+    public void sendCheck(boolean value) {
+        //Xử lý truyền fragment to fragment ở đây
+        Toast.makeText(getActivity(), "Got: " + value, Toast.LENGTH_SHORT).show();
+    }
 }

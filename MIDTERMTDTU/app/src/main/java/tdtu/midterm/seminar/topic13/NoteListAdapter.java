@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -31,11 +32,13 @@ public class NoteListAdapter extends BaseAdapter {
     private List<Note> list;
     private ViewHolder viewHolder;
     private int position;
+    ISendData sendData;
 
-    public NoteListAdapter(Context context, int layout, List<Note> list) {
+    public NoteListAdapter(Context context, int layout, List<Note> list,ISendData sendData) {
         this.context = context;
         this.layout = layout;
         this.list = list;
+        this.sendData = sendData;
     }
 
 
@@ -107,7 +110,7 @@ public class NoteListAdapter extends BaseAdapter {
                         switch (item.getItemId() ){
                             case R.id.menuDanhDau:
 //                                Toast.makeText(v.getContext(), "Check", Toast.LENGTH_SHORT).show();
-
+                                sendData.sendCheck(true);
                                 break;
                             case R.id.menuXoaNote:
                                 removeDialog(v,position);
