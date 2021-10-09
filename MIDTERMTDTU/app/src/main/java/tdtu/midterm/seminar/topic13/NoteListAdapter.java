@@ -20,9 +20,12 @@ import android.widget.Toast;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NoteListAdapter extends BaseAdapter {
@@ -33,14 +36,15 @@ public class NoteListAdapter extends BaseAdapter {
     private ViewHolder viewHolder;
     private int position;
     ISendData sendData;
+    Singleton singleton;
+    List<Check> listTemp;
 
-    public NoteListAdapter(Context context, int layout, List<Note> list,ISendData sendData) {
+    public NoteListAdapter(Context context, int layout, List<Note> list, ISendData sendData) {
         this.context = context;
         this.layout = layout;
         this.list = list;
         this.sendData = sendData;
     }
-
 
     public void setData(List<Note> list){
         this.list = list;
@@ -99,6 +103,9 @@ public class NoteListAdapter extends BaseAdapter {
         viewHolder.textTittle.setText(note.getTittle());
         viewHolder.textDescription.setText(note.getDescription());
         viewHolder.btnClick.setText(note.getBtnClick());
+        singleton = Singleton.getInstance();
+        listTemp = new ArrayList<>();
+
         viewHolder.btnClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +117,8 @@ public class NoteListAdapter extends BaseAdapter {
                         switch (item.getItemId() ){
                             case R.id.menuDanhDau:
 //                                Toast.makeText(v.getContext(), "Check", Toast.LENGTH_SHORT).show();
-                                sendData.sendCheck(true);
+                                sendData.sendCheck(true,position);
+                                singleton.addCheckListCheckFragment(new Check(note.getTittle(),note.getDescription(),"Remove"));
                                 break;
                             case R.id.menuXoaNote:
                                 removeDialog(v,position);
@@ -167,7 +175,7 @@ public class NoteListAdapter extends BaseAdapter {
             public void onClick(DialogInterface dialog, int which) {
                 list.remove(position);
                 notifyDataSetChanged();
-                Toast.makeText(view.getContext(), "Xóa Thành Công", Toast.LENGTH_SHORT).show();
+                sendData.sendCheck(false,position);
             }
         });
 
@@ -180,5 +188,6 @@ public class NoteListAdapter extends BaseAdapter {
 
         dialog.show();
     }
+
 
 }

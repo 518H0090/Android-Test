@@ -2,6 +2,7 @@ package tdtu.midterm.seminar.topic13;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoteFragment extends Fragment implements ISendData{
+public class NoteFragment extends Fragment implements ISendData {
 
     View view;
     ListView listNote;
@@ -63,6 +64,7 @@ public class NoteFragment extends Fragment implements ISendData{
         );
 
         listNote.setAdapter(noteListAdapter);
+        swipeRefreshLayout.setColorSchemeResources(R.color.orange,R.color.blue,R.color.black);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -152,9 +154,35 @@ public class NoteFragment extends Fragment implements ISendData{
         snackbar.show();
     }
 
+
     @Override
-    public void sendCheck(boolean value) {
-        //Xử lý truyền fragment to fragment ở đây
-        Toast.makeText(getActivity(), "Got: " + value, Toast.LENGTH_SHORT).show();
+    public void sendCheck(boolean value , int position) {
+        if (value == true ) {
+            Snackbar snackbar = Snackbar.make(coordinatorLayout,"Thêm vào Check",Snackbar.LENGTH_INDEFINITE).
+                    setAction("Tắt", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Snackbar snackbar1 = Snackbar.make(coordinatorLayout,"Tắt Thành Công", Snackbar.LENGTH_SHORT);
+                            snackbar1.show();
+                        }
+                    });
+            snackbar.show();
+        } else {
+            Snackbar snackbar = Snackbar.make(coordinatorLayout,"Xóa Thành Công",Snackbar.LENGTH_INDEFINITE).
+                    setAction("Tắt", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Snackbar snackbar1 = Snackbar.make(coordinatorLayout,"Tắt Thành Công", Snackbar.LENGTH_SHORT);
+                            snackbar1.show();
+                        }
+                    });
+            snackbar.show();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Toast.makeText(getActivity(), "Màn hình Note được gọi", Toast.LENGTH_SHORT).show();
     }
 }

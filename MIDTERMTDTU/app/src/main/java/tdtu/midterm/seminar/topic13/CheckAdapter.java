@@ -17,10 +17,10 @@ public class CheckAdapter extends BaseAdapter {
     private int layout;
     private List<Check> checks;
     private Check check;
+    ISendCheck sendCheck;
 
-    public CheckAdapter(Context context, int layout) {
-        this.context = context;
-        this.layout = layout;
+    public void setSendCheck(ISendCheck sendCheck) {
+        this.sendCheck = sendCheck;
     }
 
     public CheckAdapter(Context context, int layout, List<Check> checks) {
@@ -79,6 +79,7 @@ public class CheckAdapter extends BaseAdapter {
         viewHolder.textTittle.setText(check.getTittle());
         viewHolder.textDescription.setText(check.getDescription());
         viewHolder.btnClick.setText(check.getBtnClick());
+        sendCheck.sendCheck("Lên Màn Hình");
         viewHolder.btnClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
